@@ -1,6 +1,6 @@
 class hashMap{
     constructor(size = 16){
-        this.bucket = new Array(size).fill().map(() => []);
+        this.bucket = new Array(size).fill().map(() => new linkedList());
         this.size = size;
         this.loadFactor = 0.75;
     }
@@ -25,15 +25,97 @@ class hashMap{
           }
     }
 
+    checkLoad(){
+      const currentLoad = this.bucket;
+      let checkEmpty = 0;
+
+      console.log("iteration")
+      for(let i=0; i <= this.bucket.length -1; i++){
+       if(this.bucket[i].length ===0){
+          checkEmpty++;
+      }
+           //(size - checkempy) / size
+      }
+      let loadCalc = (this.size - checkEmpty)/this.size;
+      let loadCalcRemaining = this.loadFactor - loadCalc;
+
+      if(loadCalcRemaining <= 0){
+        this.size = this.size * 2;
+      }
+
+    }
+
     set(key, value){
         let index = this.index(this.hash(key));
+        console.log(`index`+index)
+        this.checkLoad()
+        //this.bucket[index].push(key, value);
+
+        const newNode = new linkedListNode(key, value);
+        this.bucket[index].append(newNode);
+
         
-        this.bucket[index].push(key, value);
     }
 
 }
 
+class linkedList{
+  constructor(){
+    this.head = null;
+    this.length = 0;
+  }
+
+  append(node){
+    if (!this.head) {
+        this.head = node;
+    } else {
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = node;
+    }
+    this.length++;
+}
+}
+
+class linkedListNode{
+  constructor(key,value, next = null){
+    this.key = key;
+    this.value = value;
+    this.next = next;
+  }
+}
+
 const newMap = new hashMap();
 console.log(newMap);
-newMap.set("Lukas", 26)
-newMap.set("Katerina", 25)
+newMap.set("Lukas", 26);
+ newMap.set("Katerina", 25);
+
+ newMap.set("Dumbo", 45)
+ newMap.set("Fulmar", 22)
+ newMap.set("Nodar", 12)
+ newMap.set("Tomas", 30)
+ newMap.set("Adam",44)
+ newMap.set("Jakub",85)
+ newMap.set("Jarda",43)
+ newMap.set("Johny",67)
+ newMap.set("dfghdfg",34)
+ newMap.set("hjkhjkhj",55)
+ newMap.set("ghjkty",55)
+ newMap.set("ert",33)
+ newMap.set("gg",44)
+ newMap.set("loip",48)
+ newMap.set("uiouio",77)
+ newMap.set("bnmu",87)
+ newMap.set("uio",12)
+ newMap.set("nghj",33)
+ newMap.set("xcvyy",21)
+ newMap.set("ert",66)
+ newMap.set("hjkhjk",66)
+ newMap.set("rtyrty",88)
+ newMap.set("vbnvbc",11)
+ newMap.set("frer",44)
+ newMap.set("dfgvcbn",22)
+
+
