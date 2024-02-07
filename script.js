@@ -68,10 +68,10 @@ class hashMap{
           if(current.key === key){
             current.value = value;
             return true;
-          }
+            }
           current = current.next;
+          }
         }
-      }
       }
 
     set(key, value){
@@ -81,12 +81,46 @@ class hashMap{
           return;
         }else{
         this.checkLoad();
-
         const newNode = new linkedListNode(key, value);
         this.bucket[index].append(newNode);
       }
 
         
+    }
+
+    get(key){
+      let foundValue = null;
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+          while (current !== null) {
+            if(current.key === key){
+              console.log("FOUND IT");
+              foundValue = current.value;
+              break;
+            }
+            current = current.next;
+          }
+        });
+        return console.log(foundValue);
+    }
+
+    has(key){
+      let foundValue = false;
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+          while (current !== null) {
+            if(current.key === key){
+              console.log("FOUND IT");
+              foundValue = true;
+              break;
+            }
+            current = current.next;
+          }
+        });
+
+      return console.log(foundValue);
     }
 
 }
@@ -142,6 +176,14 @@ newMap.set("uiouio",77);
 
 //duplicate entry to check if values are being overwritten
 newMap.set("loip",444);
+
+//returns value associated with a key, null if not found
+newMap.get("loip");
+newMap.get("loipsssssss");
+
+//returns true/false based on whether or not the key is in the hashmap
+newMap.has("Lukas");
+newMap.has("Lukasss");
 
 //Uncomment to see bucket expand
 //  newMap.set("bnmu",87);
