@@ -26,21 +26,34 @@ class hashMap{
     }
 
     checkLoad(){
-      const currentLoad = this.bucket;
       let checkEmpty = 0;
 
-      console.log("iteration")
       for(let i=0; i <= this.bucket.length -1; i++){
        if(this.bucket[i].length ===0){
           checkEmpty++;
       }
-           //(size - checkempy) / size
+          //(size - checkempty) / size
       }
       let loadCalc = (this.size - checkEmpty)/this.size;
       let loadCalcRemaining = this.loadFactor - loadCalc;
 
       if(loadCalcRemaining <= 0){
-        this.size = this.size * 2;
+        const newSize = this.size * 2;
+        const newBucket = new Array(newSize).fill().map(() => new linkedList());
+
+        this.bucket.forEach(linkedList => {
+          let current = linkedList.head;
+            while (current !== null) {
+              const newIndex = this.index(this.hash(current.key));
+              const newNode = new linkedListNode(current.key, current.value)
+              newBucket[newIndex].append(newNode);
+              current = current.next;
+            }
+          });
+
+        this.bucket =  newBucket;
+        this.size = newSize;
+         
       }
 
     }
@@ -76,6 +89,7 @@ class linkedList{
         current.next = node;
     }
     this.length++;
+    console.log(newMap)
 }
 }
 
@@ -90,32 +104,31 @@ class linkedListNode{
 const newMap = new hashMap();
 console.log(newMap);
 newMap.set("Lukas", 26);
- newMap.set("Katerina", 25);
-
- newMap.set("Dumbo", 45)
- newMap.set("Fulmar", 22)
- newMap.set("Nodar", 12)
- newMap.set("Tomas", 30)
- newMap.set("Adam",44)
- newMap.set("Jakub",85)
- newMap.set("Jarda",43)
- newMap.set("Johny",67)
- newMap.set("dfghdfg",34)
- newMap.set("hjkhjkhj",55)
- newMap.set("ghjkty",55)
- newMap.set("ert",33)
- newMap.set("gg",44)
- newMap.set("loip",48)
- newMap.set("uiouio",77)
- newMap.set("bnmu",87)
- newMap.set("uio",12)
- newMap.set("nghj",33)
- newMap.set("xcvyy",21)
- newMap.set("ert",66)
- newMap.set("hjkhjk",66)
- newMap.set("rtyrty",88)
- newMap.set("vbnvbc",11)
- newMap.set("frer",44)
- newMap.set("dfgvcbn",22)
+newMap.set("Katerina", 25);
+newMap.set("Dumbo", 45)
+newMap.set("Fulmar", 22)
+newMap.set("Nodar", 12)
+newMap.set("Tomas", 30)
+newMap.set("Adam",44)
+newMap.set("Jakub",85)
+newMap.set("Jarda",43)
+newMap.set("Johny",67)
+newMap.set("dfghdfg",34)
+newMap.set("hjkhjkhj",55)
+newMap.set("ghjkty",55)
+newMap.set("ert",33)
+newMap.set("gg",44)
+newMap.set("loip",48)
+newMap.set("uiouio",77)
+newMap.set("bnmu",87)
+newMap.set("uio",12)
+newMap.set("nghj",33)
+newMap.set("xcvyy",21)
+newMap.set("ert",66)
+newMap.set("hjkhjk",66)
+newMap.set("rtyrty",88)
+newMap.set("vbnvbc",11)
+newMap.set("frer",44)
+newMap.set("dfgvcbn",22)
 
 
