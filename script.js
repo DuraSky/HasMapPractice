@@ -123,6 +123,104 @@ class hashMap{
       return console.log(foundValue);
     }
 
+    remove(key){
+      let foundValue = false;
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+        let prev = null;
+          while (current !== null) {
+            if(current.key === key){
+              console.log("FOUND IT");
+              foundValue = true;
+              if(prev === null){
+                linkedList.head = current.next;
+              }else{
+                prev.next = current.next
+              }
+              linkedList.length--;
+              break;
+            }
+            prev = current;
+            current = current.next;
+          }
+        });
+
+      return console.log(foundValue);
+
+    }
+
+    length(){
+      let keyCounter = 0;
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+          while (current !== null) {
+            if(current.key){
+              keyCounter++;
+            }
+            current = current.next;
+          }
+        });
+
+      return console.log(keyCounter);
+    }
+
+    clear(){
+      this.bucket.forEach(linkedList => {
+        linkedList.head = null;
+        linkedList.length = 0;
+        });
+    }
+
+    keys(){
+      let keysArr = [];
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+          while (current !== null) {
+            if(current.key){
+              keysArr.push(current.key)
+            }
+            current = current.next;
+          }
+        });
+      return console.log(keysArr);
+    }
+
+    values(){
+      let valuesArr = [];
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+          while (current !== null) {
+            if(current.value){
+              valuesArr.push(current.value)
+            }
+            current = current.next;
+          }
+        });
+      return console.log(valuesArr);
+    }
+
+    entries(){
+      let entriesArr= [];
+
+      this.bucket.forEach(linkedList => {
+        let current = linkedList.head;
+        let entriesSubArr = [];
+          while (current !== null) {
+            if(current.key){
+              entriesSubArr.push(current.key + ", " + current.value);
+            }
+            current = current.next;
+          }
+          entriesArr.push(entriesSubArr);
+
+        });
+      return console.log(entriesArr);
+    }
+
 }
 
 class linkedList{
@@ -184,6 +282,25 @@ newMap.get("loipsssssss");
 //returns true/false based on whether or not the key is in the hashmap
 newMap.has("Lukas");
 newMap.has("Lukasss");
+
+//returns true/false based on whether or not the key is in the hashmap and removes it 
+newMap.remove("Jakub");
+newMap.remove("Jakubo")
+
+//returns the number of stored keys in the hash map
+newMap.length();
+
+//returns an array containing all the keys inside the hash map
+newMap.keys();
+
+//returns an array containing all the values.
+newMap.values();
+
+//returns an array that contains each key, value pair
+newMap.entries();
+
+//clears all the entries
+//newMap.clear();
 
 //Uncomment to see bucket expand
 //  newMap.set("bnmu",87);
